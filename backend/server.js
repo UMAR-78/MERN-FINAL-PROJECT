@@ -9,12 +9,15 @@ const connectDatabase = require('./config/db')
 
 const PORT = process.env.PORT || 5000
 const products = require('./routes/productRoute')
+const errorHandler = require("./middleware/error")
 
 connectDatabase();
 
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(errorHandler)
 
 // app.use(express().urlencoded.{extenden:true})
  
