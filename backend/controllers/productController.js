@@ -16,9 +16,10 @@ exports.createProduct = catchAynsError(async (req, res, next) => {
 // Get product
 exports.getAllProducts = catchAynsError(async (req, res) => {
   const resultperPage = 5;
-  const apiFeatures = new ApiFeatures(Product.find(), req.query);
+  const countProduct = await Product.countDocuments();        //To count all products
+  const apiFeatures = new ApiFeatures(Product.find(), req.query);   
   const products = await apiFeatures.search().filter().pagination(resultperPage).query.exec();
-  res.status(200).json({ success: true, products });
+  res.status(200).json({ success: true, products , countProduct});
 });
 
 // get sinle product details
